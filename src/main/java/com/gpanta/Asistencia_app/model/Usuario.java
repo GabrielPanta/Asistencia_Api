@@ -10,12 +10,21 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity @Getter @Setter
+@Entity 
+@Getter 
+@Setter
 public class Usuario {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Column(unique = true, nullable = false) private String username;
-  @Column(nullable = false) private String password;
+
+  @Column(unique = true, nullable = false) 
+  private String username;
+
+  @Column(nullable = false) 
+  private String password;
+
   @Enumerated(EnumType.STRING) @Column(nullable = false) private Rol rol;
   private boolean activo = true;
+
 }

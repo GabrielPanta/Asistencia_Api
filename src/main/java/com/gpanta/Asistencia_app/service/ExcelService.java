@@ -45,13 +45,21 @@ public class ExcelService {
         a.setApellidosNombres(getString(row, 1));
         a.setDni(getString(row, 2));
         a.setRegimen(getString(row, 3));
-        a.setFechaIngreso(parseDate(getString(row, 4)));
-        a.setHoraIngreso(parseTime(getString(row, 5)));
+        a.setFechaIngreso(getString(row, 4));
+        a.setHoraIngreso(getString(row, 5));
         a.setTotalHoras(getString(row, 6));
+        a.setMarcacionIngreso(getString(row, 7));
+        a.setMarcacionSalida(getString(row, 8));
+        a.setTotalHorasMarcacion(getString(row, 9));
+        a.setHistorico(getString(row, 10));
         a.setZona(getString(row, 11));
+        a.setCuartel(getString(row, 12));
+        a.setPlaca(getString(row, 13));
         a.setRuta(getString(row, 14));
+        a.setCodigoBus(getString(row, 15));
         a.setCuadrilla(getString(row, 16));
-        a.setLabor(getString(row, 18));
+        a.setLabor(getString(row, 17));
+        a.setObservacion(getString(row, 18));
         repo.save(a);
       }
     }
@@ -66,7 +74,7 @@ public class ExcelService {
     return c.getStringCellValue().trim();
   }
 
-  private LocalDate parseDate(String s) {
+ /* private LocalDate parseDate(String s) {
     try {
       return LocalDate.parse(s);
     } catch (Exception e) {
@@ -80,7 +88,7 @@ public class ExcelService {
     } catch (Exception e) {
       return null;
     }
-  }
+  }*/
 
   public ByteArrayOutputStream exportar(LocalDate fecha) throws IOException {
     var data = repo.findByFecha(fecha);
@@ -89,7 +97,8 @@ public class ExcelService {
     int r = 0;
     Row head = sh.createRow(r++);
     String[] cols = { "Fecha", "Codigo", "Apellidos y Nombres", "DNI", "Regimen", "Fecha Ingreso", "Hora Ingreso",
-        "Total Horas", "Zona", "Ruta", "Cuadrilla", "Labor", "Observacion" };
+        "Total Horas","Marcacion Ingreso", "Marcacion Salida","Total Horas Marcacion","Historico","Zona","Cuartel",
+        "Placa", "Ruta","Codigo Bus", "Cuadrilla", "Labor", "Observacion","Respuesta Observacion" };
     for (int i = 0; i < cols.length; i++)
       head.createCell(i).setCellValue(cols[i]);
 
@@ -104,11 +113,19 @@ public class ExcelService {
       row.createCell(c++).setCellValue(a.getFechaIngreso() != null ? a.getFechaIngreso().toString() : "");
       row.createCell(c++).setCellValue(a.getHoraIngreso() != null ? a.getHoraIngreso().toString() : "");
       row.createCell(c++).setCellValue(n(a.getTotalHoras()));
+      row.createCell(c++).setCellValue(n(a.getMarcacionIngreso()));
+      row.createCell(c++).setCellValue(n(a.getMarcacionSalida()));
+      row.createCell(c++).setCellValue(n(a.getTotalHorasMarcacion()));
+      row.createCell(c++).setCellValue(n(a.getHistorico()));
       row.createCell(c++).setCellValue(n(a.getZona()));
+      row.createCell(c++).setCellValue(n(a.getCuartel()));
+      row.createCell(c++).setCellValue(n(a.getPlaca()));
       row.createCell(c++).setCellValue(n(a.getRuta()));
+      row.createCell(c++).setCellValue(n(a.getCodigoBus()));  
       row.createCell(c++).setCellValue(n(a.getCuadrilla()));
       row.createCell(c++).setCellValue(n(a.getLabor()));
       row.createCell(c++).setCellValue(n(a.getObservacion()));
+      row.createCell(c++).setCellValue(n(a.getRespuestaObservacion()));
     }
     for (int i = 0; i < cols.length; i++)
       sh.autoSizeColumn(i);
