@@ -18,6 +18,7 @@ import com.gpanta.Asistencia_app.service.ExcelService;
 @RestController
 @RequestMapping("/api/asistencia")
 public class AsistenciaController {
+
   private final AsistenciaRepository repo;
   private final ExcelService excel;
 
@@ -38,11 +39,11 @@ public class AsistenciaController {
     return repo.findByFecha(LocalDate.parse(fecha));
   }
 
-  // Actualiza solo observación (ambos roles)
-  @PutMapping("/{id}/observacion")
+  // Actualiza solo respuesta de observación (ambos roles)
+  @PutMapping("/{id}/respuestaObservacion")
   public Asistencia setObs(@PathVariable Long id, @RequestBody Map<String, String> body) {
     var a = repo.findById(id).orElseThrow();
-    a.setObservacion(body.get("observacion"));
+    a.setRespuestaObservacion(body.get("respuestaObservacion"));
     return repo.save(a);
   }
 

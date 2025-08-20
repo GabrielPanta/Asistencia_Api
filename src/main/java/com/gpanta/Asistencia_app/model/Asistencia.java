@@ -1,7 +1,6 @@
 package com.gpanta.Asistencia_app.model;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
