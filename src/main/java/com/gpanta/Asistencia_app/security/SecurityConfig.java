@@ -3,6 +3,7 @@ package com.gpanta.Asistencia_app.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,7 +22,7 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
-        .cors(cors -> cors.disable())
+        .cors(Customizer.withDefaults()) // ✅ usa la config de CorsGlobalConfig
         .csrf(csrf->csrf.disable())
         .sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(reg->reg
