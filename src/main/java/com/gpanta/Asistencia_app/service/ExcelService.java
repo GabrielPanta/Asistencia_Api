@@ -41,25 +41,26 @@ public class ExcelService {
 
         var a = new Asistencia();
         a.setFecha(fecha);
-        a.setCodigo(getString(row, 0));
-        a.setApellidosNombres(getString(row, 1));
-        a.setDni(getString(row, 2));
-        a.setRegimen(getString(row, 3));
-        a.setFechaIngreso(getString(row, 4));
-        a.setHoraIngreso(getString(row, 5));
-        a.setTotalHoras(getString(row, 6));
-        a.setMarcacionIngreso(getString(row, 7));
-        a.setMarcacionSalida(getString(row, 8));
-        a.setTotalHorasMarcacion(getString(row, 9));
-        a.setHistorico(getString(row, 10));
-        a.setZona(getString(row, 11));
-        a.setCuartel(getString(row, 12));
-        a.setPlaca(getString(row, 13));
-        a.setRuta(getString(row, 14));
-        a.setCodigoBus(getString(row, 15));
-        a.setCuadrilla(getString(row, 16));
-        a.setLabor(getString(row, 17));
-        a.setObservacion(getString(row, 18));
+        a.setEmpresaTrabajador(getString (row, 0));
+        a.setCodigo(getString(row, 1));
+        a.setApellidosNombres(getString(row, 2));
+        a.setDni(getString(row, 3));
+        a.setRegimen(getString(row, 4));
+        a.setFechaIngreso(getString(row, 5));
+        a.setHoraIngreso(getString(row, 6));
+        a.setTotalHoras(getString(row, 7));
+        a.setMarcacionIngreso(getString(row, 8));
+        a.setMarcacionSalida(getString(row, 9));
+        a.setTotalHorasMarcacion(getString(row, 10));
+        a.setHistorico(getString(row, 11));
+        a.setZona(getString(row, 12));
+        a.setCuartel(getString(row, 13));
+        a.setPlaca(getString(row, 14));
+        a.setRuta(getString(row, 15));
+        a.setCodigoBus(getString(row, 16));
+        a.setCuadrilla(getString(row, 17));
+        a.setLabor(getString(row, 18));
+        a.setObservacion(getString(row, 19));
         repo.save(a);
       }
     }

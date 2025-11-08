@@ -39,7 +39,6 @@ public class AsistenciaController {
     return repo.findByFecha(LocalDate.parse(fecha));
   }
 
-  // Actualiza solo respuesta de observación (ambos roles)
   @PutMapping("/{id}/respuestaObservacion")
   public Asistencia setObs(@PathVariable Long id, @RequestBody Map<String, String> body) {
     var a = repo.findById(id).orElseThrow();
@@ -47,11 +46,11 @@ public class AsistenciaController {
     return repo.save(a);
   }
 
-  // Solo ENCARGADO: actualizar registro completo
   @PutMapping("/{id}")
   public Asistencia update(@PathVariable Long id, @RequestBody Asistencia nuevo, Authentication auth) {
-    // Seguridad adicional: validar rol desde auth si quieres
+
     var a = repo.findById(id).orElseThrow();
+    a.setEmpresaTrabajador(nuevo.getEmpresaTrabajador());
     a.setCodigo(nuevo.getCodigo());
     a.setApellidosNombres(nuevo.getApellidosNombres());
     a.setDni(nuevo.getDni());

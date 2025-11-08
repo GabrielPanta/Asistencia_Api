@@ -20,7 +20,8 @@ public class Asistencia {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private LocalDate fecha;               
+  private LocalDate fecha;
+  private String empresaTrabajador;           
   private String codigo;
   private String apellidosNombres;
   private String dni;

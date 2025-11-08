@@ -15,7 +15,7 @@ public class DataSeeder {
     return args -> {
       if (repo.findByUsername("encargado")==null){
         var u=new Usuario();
-          u.setUsername("encargado");
+          u.setUsername("Gabriel Panta");
           u.setPassword(enc.encode("123456"));
           u.setRol(Rol.ENCARGADO); 
            
@@ -23,7 +23,7 @@ public class DataSeeder {
       }
       if (repo.findByUsername("control")==null){
         var u=new Usuario(); 
-        u.setUsername("control"); 
+        u.setUsername("Joshimar Samame"); 
         u.setPassword(enc.encode("123456")); 
         u.setRol(Rol.CONTROL_ASISTENCIA); 
         
