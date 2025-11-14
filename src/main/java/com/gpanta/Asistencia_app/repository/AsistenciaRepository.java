@@ -9,4 +9,5 @@ import com.gpanta.Asistencia_app.model.Asistencia;
 
 public interface AsistenciaRepository extends JpaRepository<Asistencia, Long> {
   List<Asistencia> findByFecha(LocalDate fecha);
+  List<Asistencia> findByFechaAndEmpresaTrabajador(LocalDate fecha, String empresaTrabajador);
 }

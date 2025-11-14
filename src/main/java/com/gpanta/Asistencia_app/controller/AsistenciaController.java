@@ -13,6 +13,7 @@ import java.util.Map;
 
 import com.gpanta.Asistencia_app.model.Asistencia;
 import com.gpanta.Asistencia_app.repository.AsistenciaRepository;
+import com.gpanta.Asistencia_app.repository.UsuarioRepository;
 import com.gpanta.Asistencia_app.service.ExcelService;
 
 @RestController
@@ -21,10 +22,55 @@ public class AsistenciaController {
 
   private final AsistenciaRepository repo;
   private final ExcelService excel;
+  private final UsuarioRepository usuarioRepo;
 
-  public AsistenciaController(AsistenciaRepository r, ExcelService e) {
+  public AsistenciaController(AsistenciaRepository r, ExcelService e, UsuarioRepository u) {
     repo = r;
     excel = e;
+    usuarioRepo = u;
+  }
+
+  @PostMapping("/importar/empresa")
+  public ResponseEntity<?> importarPorEmpresa(
+      @RequestParam("file") MultipartFile file,
+      @RequestParam("fecha") String fecha,
+      Authentication auth) throws IOException {
+
+    String username = auth.getName();
+
+    int empresaId = getEmpresaIdPorUsuario(username);
+
+    if (empresaId != 9 && empresaId != 14) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN)
+          .body(Map.of("error", "No tienes permiso para importar datos para esta empresa"));
+    }
+
+    excel.importarPorEmpresa(file, LocalDate.parse(fecha), empresaId);
+    return ResponseEntity.ok(Map.of("msg", "Importado para empresa " + empresaId));
+  }
+
+  @GetMapping("/empresa/{fecha}")
+  public List<Asistencia> listarPorEmpresa(@PathVariable String fecha, Authentication auth) {
+    String username = auth.getName();
+    int empresaId = getEmpresaIdPorUsuario(username);
+
+    if (empresaId != 9 && empresaId != 14) {
+      throw new RuntimeException("No tienes permiso para ver datos de esta empresa");
+    }
+
+    return repo.findByFechaAndEmpresaTrabajador(
+        LocalDate.parse(fecha),
+        String.valueOf(empresaId));
+  }
+
+  private int getEmpresaIdPorUsuario(String username) {
+    var u = usuarioRepo.findByUsername(username);
+
+    if (u == null) {
+      return 0;
+    }
+
+    return u.getEmpresaId() != null ? u.getEmpresaId() : 0;
   }
 
   @PostMapping("/importar")

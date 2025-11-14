@@ -24,6 +24,8 @@ public class Usuario {
   @Column(nullable = false) 
   private String password;
 
+  private Integer empresaId;
+
   @Enumerated(EnumType.STRING) @Column(nullable = false) private Rol rol;
   private boolean activo = true;
 

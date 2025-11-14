@@ -27,7 +27,7 @@ public class SecurityConfig {
         .sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(reg->reg
             .requestMatchers("/api/auth/**").permitAll()
-            .requestMatchers("/api/asistencia/importar").hasRole("ENCARGADO")
+            .requestMatchers("/api/asistencia/importar/**").hasRole("ENCARGADO")
             .requestMatchers("/api/asistencia/exportar/**").hasAnyRole("ENCARGADO","CONTROL_ASISTENCIA")
             .requestMatchers("/api/asistencia/**").authenticated()
             .anyRequest().authenticated())
