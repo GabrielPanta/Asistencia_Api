@@ -232,4 +232,16 @@ private String obtenerNombreEmpresa(int id) {
   private String n(String s) {
     return s == null ? "" : s;
   }
+
+  public String extraerEmpresa(MultipartFile file) throws IOException {
+try (var in = file.getInputStream(); var wb = WorkbookFactory.create(in)) {
+Sheet sheet = wb.getSheetAt(0);
+for (Row row : sheet) {
+if (row.getRowNum() == 0) continue;
+if (row.getCell(0) == null) continue;
+return getString(row, 0);
+}
+}
+return null;
+}
 }

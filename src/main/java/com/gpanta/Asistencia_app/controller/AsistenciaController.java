@@ -40,6 +40,7 @@ public class AsistenciaController {
 
     int empresaId = getEmpresaIdPorUsuario(username);
 
+
     if (empresaId != 9 && empresaId != 14) {
       return ResponseEntity.status(HttpStatus.FORBIDDEN)
           .body(Map.of("error", "No tienes permiso para importar datos para esta empresa"));
